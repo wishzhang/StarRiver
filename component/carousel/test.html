@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link type="text/css" rel="stylesheet" href="carousel.css"/>
+
+</head>
+
+<body>
+
+<div id="carousel1" class="carousel-container">
+    <div class="carousel-wrapper">
+        <div class="carousel-slide"  v-for="item in picUrlList">
+            <img :src="item" width="100%" height="100%"/>
+        </div>
+    </div>
+    <a class="carousel-arrow carousel-pre"><</a>
+    <a class="carousel-arrow carousel-next"></a>
+    <div class="carousel-bullet">
+        <li class="bullet" v-for="item in picUrlList"></li>
+    </div>
+</div>
+
+
+<script type='text/javascript' src="jquery-3.2.1.js"></script>
+<script type='text/javascript' src="carousel.js"></script>
+<script>
+
+    new Vue({
+        el:'#carousel1',
+        data:{
+            picUrlList:['album1-220x220.jpg','album2-220x220.jpg','album3-220x220.jpg','album4-220x220.jpg']
+        }
+    })
+
+    $('#carousel1').carousel();
+</script>
+</body>
+</html>

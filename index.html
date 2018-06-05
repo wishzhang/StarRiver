@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>酷狗音乐 - 就是歌多</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="component/carousel/carousel.css">
+    <link rel="shotcut icon" href="http://www.kugou.com/root/favicon.ico">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<header>
+    <h1 class="logo">
+        <a href="#"><img src="http://static.kgimg.com/public/root/images/logo.png" alt=""></a>
+    </h1>
+    <div class="search">
+        <input type="text" value="">
+        <button class="search_icon">&nbsp</button>
+    </div>
+    <div class="top_nav">
+        <ul class="personal-certer">
+            <li><a href="#">客服中心</a></li>
+            <li><a href="#">招贤纳士</a></li>
+            <li><a href="#">会员中心</a></li>
+        </ul>
+        <div class="log_rig">
+            <button>登录</button>
+            <button>注册</button>
+        </div>
+    </div>
+</header>
+<!--导航栏-->
+<nav>
+    <div class="nav-content">
+        <ul class="nav-left">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">榜单</a></li>
+            <li><a href="#">下载客户端</a></li>
+            <li><a href="#">更多</a></li>
+        </ul>
+
+        <ul class="nav-right">
+            <li><a href="#">音乐直播</a></li>
+            <li><a href="#">酷狗LIVE</a></li>
+            <li><a href="#">音乐人</a></li>
+            <li><a href="#">游戏</a></li>
+            <li><a href="#">商城</a></li>
+        </ul>
+    </div>
+</nav>
+<!--轮播图-->
+<section class="slider">
+    <div id="carousel1" class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-slide" v-for="item in picUrlList">
+                <img :src="'component/carousel/'+item" width="100%" height="448px"/>
+            </div>
+        </div>
+        <a class="carousel-arrow carousel-pre"><</a>
+        <a class="carousel-arrow carousel-next">></a>
+        <div class="carousel-bullet">
+            <li class="bullet" v-for="item in picUrlList"></li>
+        </div>
+        <div class="download"></div>
+    </div>
+</section>
+<!--精选歌单-->
+<section class="choice">
+    <div class="flexbox1">
+        <div class="flexbox2">
+            <div class="flexbox2-header">
+                <h1 class="flexbox2-header-title">精选歌单</h1>
+                <a>更多</a>
+            </div>
+            <div class="flexbox2-content">
+                <div class="flexbox2-content-left">
+                    <img src="http://imge.kugou.com/soft/collection/480/20180110/20180110143120782938.jpg" width="325"
+                         height="325" alt="">
+                    <div class="description">
+                        <p>不爱你，谈何容易</p>
+                        <p>唐三</p>
+                    </div>
+                </div>
+                <div class="flexbox2-content-right">
+                    <div class="flexbox2-content-right-item">
+                        <img src="http://imge.kugou.com/soft/collection/150/20180511/20180511085907613371.jpg"
+                             width="160" height="160" alt="">
+                    </div>
+                    <div class="flexbox2-content-right-item">
+                        <img src="http://imge.kugou.com/soft/collection/150/20170406/20170406185944242936.jpg"
+                             width="160" height="160" alt="">
+                    </div>
+                    <div class="flexbox2-content-right-item">
+                        <img src="http://imge.kugou.com/soft/collection/150/20171226/20171226171712325078.jpg"
+                             width="160" height="160" alt="">
+                    </div>
+                    <div class="flexbox2-content-right-item">
+                        <img src="http://imge.kugou.com/soft/collection/150/20180508/20180508003412127726.jpg"
+                             width="160" height="160" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flexbox3">
+            <div class="flexbox3-header">
+                <h1 class="flexbox3-header-title">热门榜单</h1>
+                <a href="#">更多</a>
+            </div>
+            <div class="flexbox3-content">
+                <div class="flexbox3-content-item">
+                    <img src="http://imge.kugou.com/v2/rank_cover/T1M4h4BKKj1RCvBVdK.jpg_240x240.jpg" width="98"
+                         height="98" alt="">
+                    <dl>
+                        <dt>酷狗飙升榜</dt>
+                        <dd>1 . 韩东君 - 失恋阵线联盟 (Live)</dd>
+                        <dd>2 . 陈学冬、徐静蕾 - 有一点动心 (Live)</dd>
+                    </dl>
+                    <span>></span>
+                </div>
+                <div class="flexbox3-content-item">
+                    <img src="http://imge.kugou.com/v2/rank_cover/T1fHd4BXd_1RCvBVdK.jpg_240x240.jpg" width="98"
+                         height="98" alt="">
+                    <dl>
+                        <dt>酷狗TOP500</dt>
+                        <dd>1 . 烟把儿乐队 - 纸短情长 (完整版)</dd>
+                        <dd>2 . 庄心妍 - 再见只是陌生人</dd>
+                    </dl>
+                    <span>></span>
+                </div>
+                <div class="flexbox3-content-item">
+                    <img src="http://imge.kugou.com/v2/rank_cover/T1Fpd4BKbg1RCvBVdK.jpg_240x240.jpg" width="98"
+                         height="98" alt="">
+                    <dl>
+                        <dt>网络红歌榜</dt>
+                        <dd>1 . 庄心妍 - 记得找我</dd>
+                        <dd>2 . 慕容晓晓 - 非走不可</dd>
+                    </dl>
+                    <span>></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--广告1-->
+<section class="ads1">
+    <img src="http://adsfile.bssdlbig.kugou.com/e402640b96a9a2d4764e1ddfb9e96fc5.jpg" width="1000" height="80" alt="">
+</section>
+<!--新歌首发-->
+<section class="newsong">
+    <div class="newsong-left">
+        <div class="newsong-left-header">
+            <h1>新歌首发</h1>
+            <ul class="area">
+                <li><a>华语</a></li>
+                <li><a>欧美</a></li>
+                <li><a>韩国</a></li>
+                <li><a>日本</a></li>
+            </ul>
+            <button>
+                <span class="icon"></span>
+                <em>全部播放</em>
+            </button>
+        </div>
+        <ul class="newsong-left-content">
+            <li><a href="#"><span>周笔畅 - 我还学不会享受</span><span>03:51</span></a></li>
+            <li><a href="#"><span>萧敬腾 - 王妃2.0</span><span>04:00</span></a></li>
+            <li><a href="#"><span>胡66 - 浪人琵琶</span><span>03:44</span></a></li>
+            <li><a href="#"><span>宋孟君、威仔 - 9277 (原版)</span><span>03:06</span></a></li>
+            <li><a href="#"><span>祁隆、梅朵 - 永远的等你</span><span>03:55</span></a></li>
+            <li><a href="#"><span>段奥娟、许靖韵、SING-赖美云、高秋梓、AKB48CHINA-刘念 - Let Me Love You (Live)ffffffffffffffffffffffffffff</span><span>03:51</span></a>
+            </li>
+            <li><a href="#"><span>安东阳 - 我是真的很在乎</span><span>04:27</span></a></li>
+            <li><a href="#"><span>岳云鹏、薛之谦 - 醒来 (Live)</span><span>04:17</span></a></li>
+        </ul>
+        <div class="newsong-left-page">
+            <a class="pre" href="#"><&nbsp&nbsp</a>
+            <span class="current-page">1</span>/<span class="all-page">3</span>
+            <a class="next" href="#">&nbsp&nbsp></a>
+        </div>
+    </div>
+    <div class="advicemv">
+        <div class="advicemv-header">
+            <h1>推荐MV</h1>
+            <a href="#">更多</a>
+        </div>
+        <div class="advicemv-content">
+            <a href="#">
+                <img src="http://imge.kugou.com/mvhdpic/400/20180527/20180527130116101234.jpg" width="320" height="175"
+                     alt="">
+            </a>
+            <a href="#">
+                <img src="http://imge.kugou.com/commendpic/20180526/20180526100547724937.jpg" width="154" height="84"
+                     alt="">
+                <div>
+                    <p>Like That</p>
+                    <p>吴亦凡</p>
+                </div>
+            </a>
+            <a href="#">
+                <img src="http://imge.kugou.com/commendpic/20180525/20180525100502914476.jpg" width="154" height="84"
+                     alt="">
+                <div>
+                    <p>与你常在</p>
+                    <p>eason and the duo band</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+<!--广告2-->
+<section class="ads2">
+    <img src="http://adsfile.bssdlbig.kugou.com/e402640b96a9a2d4764e1ddfb9e96fc5.jpg" width="1000" height="100" alt="">
+</section>
+<!--热门电台-->
+<section class="hotradio">
+    <div class="hotradio-left">
+        <div class="hotradio-left-header">
+            <h1>热门电台</h1>
+            <a href="#">更多</a>
+        </div>
+        <ul class="hotradio-left-content">
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_1.jpg" alt="" width="100"
+                                 height="100">
+                <p>KTV必点曲</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_2.jpg" alt="" width="100"
+                                 height="100">
+                <p>中文DJ</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_3.jpg" alt="" width="100"
+                                 height="100">
+                <p>酷狗热歌</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_4.jpg" alt="" width="100"
+                                 height="100">
+                <p>网络红歌</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_5.jpg" alt="" width="100"
+                                 height="100">
+                <p>经典</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_6.jpg" alt="" width="100"
+                                 height="100">
+                <p>老情歌</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_7.jpg" alt="" width="100"
+                                 height="100">
+                <p>新歌</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_8.jpg" alt="" width="100"
+                                 height="100">
+                <p>动漫</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_9.jpg" alt="" width="100"
+                                 height="100">
+                <p>轻音乐</p>
+            </a></li>
+            <li><a href="#"><img src="http://static.kgimg.com/public/root//images/radio_10.jpg" alt="" width="100"
+                                 height="100">
+                <p>最爱成名曲</p>
+            </a></li>
+        </ul>
+    </div>
+    <div class="hotsinger">
+        <div class="hotsinger-header">
+            <h1>热门歌手</h1>
+            <ul>
+                <li>华语</li>
+                <li>欧美</li>
+                <li>日韩</li>
+            </ul>
+            <a href="#">更多</a>
+        </div>
+
+        <div class="hotsinger-content">
+            <li><img src="http://singerimg.kugou.com/uploadpic/pass/softhead/240/20140218/20140218093900627425.jpg"
+                     width="160" height="160" alt=""></li>
+            <li><img src="http://singerimg.kugou.com/uploadpic/pass/softhead/240/20170405/20170405105017399985.jpg"
+                     width="160" height="160" alt=""></li>
+            <li><img src="http://singerimg.kugou.com/uploadpic/pass/softhead/240/20180521/20180521175618738.jpg"
+                     width="103" height="105" alt=""></li>
+            <li><img src="http://singerimg.kugou.com/uploadpic/pass/softhead/240/20171207/20171207215832612.jpg"
+                     width="103" height="105" alt=""></li>
+            <li><img src="http://singerimg.kugou.com/uploadpic/pass/softhead/240/20180122/20180122183342412.jpg"
+                     width="103" height="105" alt=""></li>
+        </div>
+    </div>
+</section>
+<!--广告3-->
+<section class="ads3">
+    <img src="http://adsfile.bssdlbig.kugou.com/b165d5a638be9310de11258c4963394b.jpg" width="1000" height="100" alt="">
+</section>
+<!--合作伙伴-->
+<section class="partner">
+    <div class="partner-header">
+        <h1>合作伙伴</h1>
+    </div>
+    <ul class="partner-content">
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner01.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner02.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner03.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner04.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner05.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner06.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner07.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner08.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner09.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner10.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner11.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner12.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner13.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner14.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner15.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner16.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner17.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner18.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner19.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner20.jpg" alt="" width="130"
+                         height="58"></a>
+        <a href="#"><img src="http://static.kgimg.com/public/root//images/logo/partner21.jpg" alt="" width="130"
+                         height="58"></a>
+    </ul>
+</section>
+<!--友情链接-->
+<section class="blogroll">
+    <div class="blogroll-header">
+        <h1>友情链接</h1>
+        <a>更多</a>
+    </div>
+    <div class="blogroll-content">
+        <a href="#">爱美网</a>
+        <a href="#">央视网综艺频道</a>
+        <a href="#">汽车论坛</a>
+        <a href="#">IT之家</a>
+        <a href="#">iPhone游戏</a>
+        <a href="#">旅游攻略</a>
+        <a href="#">悦声无限</a>
+        <a href="#">华为商城</a>
+        <a href="#">365音乐网</a>
+        <a href="#">软件下载</a>
+        <a href="#">漫漫看漫画</a>
+        <a href="#">手机游戏</a>
+        <a href="#">5sing原创音乐</a>
+        <a href="#">腾讯音乐人</a>
+    </div>
+</section>
+<!--footer-->
+<footer>
+    <div class="links">
+        <a href="#">关于酷狗</a>|
+        <a href="#">监督举报</a>|
+        <a href="#">广告服务</a>|
+        <a href="#">版权指引</a>|
+        <a href="#">隐私政策</a>|
+        <a href="#">用户服务协议</a>|
+        <a href="#">推广合作</a>|
+        <a href="#">酷狗音乐人</a>|
+        <a href="#">酷狗音乐推</a>|
+        <a href="#">招聘信息</a>|
+        <a href="#">客服中心</a>|
+        <a href="#">用户体验提升计划</a>
+    </div>
+
+    <div class="footer-content">
+        <div class="copyright">
+            <p>我们致力于推动网络正版音乐发展，相关版权合作请联系copyrights@kugou.com</p>
+            <p>信息网络传播视听节目许可证 1910564 增值电信业务经营许可证粤B2-20060339 &nbsp;&nbsp;&nbsp;<a hidefocus="true" target="_blank"
+                                                                                  href="http://www.miitbeian.gov.cn/">粤ICP备09017694号-2</a><span
+                    class="footerIcon"><a target="_blank"
+                                          href="http://sq.ccm.gov.cn:80/ccnt/sczr/service/business/emark/toDetail/E64D2439A71544C7B995FC0A53D8F965">&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+            </p>
+            <p>广播电视节目制作经营许可证（粤）字第01270号&nbsp;&nbsp;&nbsp;&nbsp;营业性演出许可证穗天演440106026</p>
+            <p>穗公网监备案证第44010650010167&nbsp;&nbsp;&nbsp;&nbsp;互联网药品信息服务资格证编号（粤）-非经营性-2012-0018<a style="" target="_blank"
+                                                                                                href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44010602000141">&nbsp;&nbsp;&nbsp;<span>粤公网安备 44010602000141号</span><img
+                    style="vertical-align: text-bottom;" }=""
+                    src="http://www.kugou.com/common/images/icon_yuewangga1.png" width="16" height="16"></a></p>
+            <p>Copyright&nbsp;&nbsp;©&nbsp;&nbsp;2004-2018 KuGou-Inc.All Rights Reserved
+                <a hidefocus="true" class="office-verification"
+                   href="http://netadreg.gzaic.gov.cn/ntmm/WebSear/WebLogoPub.aspx?logo=440106106022006022000209"
+                   target="_blank"></a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script type='text/javascript' src="component/carousel/jquery-3.2.1.js"></script>
+<script type='text/javascript' src="component/carousel/carousel.js"></script>
+<script>
+window.onload=function (ev) {
+    new Vue({
+        el: '#carousel1',
+        data: {
+            picUrlList: ['album1-220x220.jpg', 'album2-220x220.jpg', 'album3-220x220.jpg', 'album4-220x220.jpg']
+        }
+    })
+    $('#carousel1').carousel();
+};
+
+</script>
+</body>
+</html>

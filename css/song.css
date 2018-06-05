@@ -1,0 +1,193 @@
+/*我改了container选择器，因为需要定制，且这种定制必须应用在整个项目中，
+    但缺点是从软件本身出发，破坏了一个整体的封装性，也就是耦合性更强，且程序更不易控制，
+    另外的方案1：写一个项目的选择器覆盖原有的样式
+    方案2：对container选择器源码改写再次封装成库
+    这里采用方案1
+*/
+
+/*
+    但由于是响应式，不同屏幕尺寸会有所不同，并没有做到精准像素级；
+    这个my-container只是对于@media(min-width:1200px){}起正作用-_-,把他放到全局文件中；
+
+    为了响应式设计，多用rem单位吧！
+*/
+
+/*天，先用弹性布局和rem作出弹性页面；天，bootstrap更改了好多默认样式，我想自定义的话需要初始化CSS代码*/
+
+
+@media (min-width: 576px){
+    html{
+        font-size: 7px;
+    }
+}
+
+@media(min-width: 768px){
+    html{
+        font-size: 8px;
+    }
+}
+
+@media(min-width: 992px){
+    html{
+        font-size: 9px;
+    }
+}
+
+@media(min-width: 1200px){
+    html{
+        font-size:10px;
+    }
+}
+
+
+html{
+    width:100%;
+    height: 100%;
+}
+
+body{
+    position: relative;
+    width:100%;
+    height:100%;
+}
+
+.my-container{
+    padding:0 70px;
+    height:100%;
+}
+
+/*header
+*/
+
+header{
+    height:7.8rem;
+}
+
+header .head-right-nav {
+    font-size: 1.5rem;
+}
+
+.logo {
+    width: 15.3rem;
+    height:3.7rem;
+}
+
+.search {
+    width:auto;
+    border: 1px solid #ccc;
+    padding: 3px;
+    min-width: 10rem;
+}
+
+.search input{
+    width:24.9rem;
+    height:2.4rem;
+    padding-left: 10px;
+
+}
+
+.search button{
+    width:3rem;
+    height:3rem;
+    background: url(../images/search.png) no-repeat;
+    background-position: -33px -49px;
+    border:none;
+}
+
+/*
+nav
+*/
+nav{
+    width:100%;
+    height:5.5rem;
+    background-color: #2c323b;
+}
+
+.mynav li a {
+    display: inline-block;
+    line-height: 5.5rem;
+    padding: 0 3rem;
+    color:white;
+    font-size: 1.6rem;
+}
+
+.mynav li a:hover{
+    background-color: #14a9ff;
+}
+
+main{
+    width:100%;
+    height:calc(100% - 13.3rem);
+    background-color: #000;
+    color:white;
+    opacity: 0.7;
+    overflow: hidden;
+}
+
+.main-play {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+    /*background-color: pink;*/
+    height:100%;
+}
+
+.main-play img{
+    width:26rem;
+    height: 26rem;
+}
+
+.lyric {
+    height:30rem;
+}
+
+.lyric .title h1{
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.lyric p,.lyric span{
+    font-size: 1.5rem;
+}
+
+.lyric .content {
+    overflow: hidden;
+    height:30rem;
+    background-color: #cccccc;
+}
+
+.lyric .content p{
+    height:3rem;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 3rem;
+}
+
+/*
+播放条
+*/
+
+footer{
+    width:100%;
+    height:8rem;
+    background-color: #000;
+    opacity: 0.3;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myaudio {
+    position: relative;
+    opacity: 1;
+}
+
+.content-wrap {
+    position: relative;
+    top:0;
+    transition: all 1s;
+}

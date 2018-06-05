@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="GBK">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/song.css">
+    <title>在线试听</title>
+</head>
+<body>
+
+<header>
+    <div class="container my-container">
+        <div class="row align-items-center h-100 no-gutters">
+            <div class="col-2 align-items-center">
+                <h1 class="logo">
+                    <a href="#">
+                        <img src="http://static.kgimg.com/public/root/images/logo.png" alt="">
+                    </a>
+                </h1>
+            </div>
+            <div class="col-4 px-5">
+                <div class="search d-flex justify-content-between align-items-center">
+                    <input type="search">
+                    <button>&nbsp</button>
+                </div>
+            </div>
+            <div class="col-4 d-flex justify-content-around px-5 head-right-nav">
+                <li class="ml-5"><a href="#">客服中心</a></li>
+                <li><a href="#">招贤纳士</a></li>
+                <li><a href="#">会员中心</a></li>
+                |
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary btn-lg">登录</button>
+                <button class="btn btn-outline-primary btn-lg">注册</button>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class=bg-success">
+    <div class="container my-container">
+        <div class="row mynav">
+            <ul class="col-6 d-flex justify-content-around align-items-center px-5 h-100">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">榜单</a></li>
+                <li><a href="#">下载客户端</a></li>
+                <li><a href="#">更多</a></li>
+            </ul>
+            <ul class="col-6 d-flex">
+                <li><a href="#">音乐直播</a></li>
+                <li><a href="#">酷狗LIVE</a></li>
+                <li><a href="#">音乐人</a></li>
+                <li><a href="#">游戏</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container my-container ">
+        <div class="main-play">
+            <div class="row w-100 mt-4">
+                <div class="col-6 w-100 d-flex justify-content-center">
+                    <div class="cover">
+                        <img src="glass.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-6 w-100">
+                    <div id="lyric" class="lyric">
+                        <div class="title">
+                            <h1>忘课</h1>
+                            <div class="row my-4">
+                                <div class="col-6">
+                                    <span>专辑：</span>
+                                    <span>忘课</span>
+                                </div>
+                                <div class="col-6">
+                                    <span>歌手：</span>
+                                    <span>杨丞琳</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="lyricContent" class="content">
+                            <div id="lyricContentWrap" class="content-wrap"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls" autoplay="autoplay">您的浏览器不支持 audio 标签。</audio>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="component/carousel/jquery-3.2.1.js"></script>
+<script src="bootstrap-4.0.0-dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script>
+
+    window.onload = function (ev) {
+        /**
+         * 先酱紫，功能需完善
+         * 1. jquery的效率问题
+         * 2. console的处理问题
+         */
+
+        var highLine = {
+            currentIndex: 0,
+            showHighLine: function (ind) {
+                var $lyricContent = $('#lyricContent').find('p');
+                $lyricContent.css('background-color', '#555')
+                $lyricContent[ind].style.backgroundColor = 'blue';
+            },
+            turnToNextLine: function () {
+                //  var $lastLine = $('#lyricContent').find('p').last();
+                //  if (!this.isOneInTwo($lastLine, $('#lyricContent'))) {
+                //下一行不管有无效，直到歌曲歌词结束
+                this.currentIndex++;
+                this.showHighLine(this.currentIndex);
+                console.log('下一站');
+            },
+            isOneInTwo: function (oneObj, twoObj) {
+                var $oneOffset = $(oneObj).offset();
+                var $twoOffset = $(twoObj).offset();
+                if ($oneOffset.left >= $twoOffset.left && $oneOffset.left + $(oneObj).width() <= $twoOffset.left + $(twoObj).width()
+                    && $oneOffset.top >= $twoOffset.top && $oneOffset.top + $(oneObj).height() <= $twoOffset.top + $(twoObj).height()) {
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        var lyricContent = {
+            lyricLineHeight: function () {
+                return $('#lyricContentWrap').find('p').first().height();
+            },
+            highLineStopIndex: 5,
+            scrollUpOneLine: function () {
+                var contentWrap = $('#lyricContentWrap');
+                var temp = contentWrap.css('top');
+                temp = (parseInt(temp) - this.lyricLineHeight()) + 'px';
+                contentWrap.css('top', temp);
+            },
+            scrollUp: function () {
+                var $content = $('#lyricContent');
+                var $contentWrap = $('#lyricContentWrap');
+                var contentMiddleTop = $content.offset().top + $content.height() / 2;
+                var contentWrapBottom = $contentWrap.offset().top + $contentWrap.height();
+                if (contentWrapBottom - this.lyricLineHeight() >= contentMiddleTop
+                    && highLine.currentIndex >= this.highLineStopIndex) {
+                    this.scrollUpOneLine();
+                    console.log('歌词内容向上滚了一行');
+                } else {
+                    console.log('歌词内容不向上滚了');
+                }
+            },
+            //定位到初始高亮行（界面歌词含[00:00.00]的行）
+            toFirstLineOneTime:function () {
+                var lines = $('#lyricContentWrap').find('p');
+                for (var i = 0; i < lines.length; i++) {
+                    var flag = lines[i].innerText.indexOf('[00:00.00]');
+                    if (flag !== -1) {
+                        for (var j = 0; j <i; j++) {
+                            highLine.turnToNextLine();
+                            lyricContent.scrollUp();
+                        }
+                        return i-1;
+                    }
+                }
+            }
+        };
+
+        //歌词对象,TM这有个转码问题,函数参数没得提示哎，子项是数字
+        var lyric = {
+            lyricArr: [],
+            getTextFromLyricFile: function () {
+                var _this = this;
+                $.ajax({
+                    url: 'hot.lrc',
+                    success: function (data) {
+                        console.log(data);
+                        var $lyricContentWrap = $('#lyricContentWrap');
+                        var lyricTemp = data.split('\n');
+                        for (var i = 0; i < lyricTemp.length - 1; i++) {
+                            $lyricContentWrap.append('<p>' + lyricTemp[i] + '</p>')
+                        }
+
+                        var arr = data.match(/\[\S{8}\]/g);
+                        for (var i = 0; i < arr.length; i++) {
+                            arr[i] = arr[i].substring(1, 9);
+                            arr[i] = _this.lyricToSecondTime(arr[i]);
+                        }
+                        _this.lyricArr = arr;
+                        console.log('arr=' + _this.lyricArr);
+                    }
+                });
+            },
+            //str [00:04.37]曲：朴树
+            lyricToSecondTime: function (str) {
+                var str = str.substring(1, 9);
+                var arr = str.split(':');
+                var currentTime = parseFloat(arr[0]) * 60 + parseFloat(arr[1]);
+                return currentTime;
+                // console.log('lyric time='+currentTime);
+            }
+        };
+
+        //播放对象
+        var play={
+            init:function () {
+                lyric.getTextFromLyricFile();
+                var myaudio = $('#myaudio');
+                var offset=0;//由于歌词数据和界面高亮currentIndex耦合在一起呢，需要做hack,导致程序各种不佳
+                var play = setInterval(function () {
+                    try {
+                        if (myaudio[0].currentTime > lyric.lyricArr[highLine.currentIndex-offset]) {
+                            if(highLine.currentIndex===0){
+                                offset=lyricContent.toFirstLineOneTime();
+                            }else{
+                                highLine.turnToNextLine();
+                                lyricContent.scrollUp();
+                            }
+                        }
+                        if (myaudio[0].ended) {
+                            clearInterval(play);
+                        }
+                    } catch (e) {
+                        console.log('play error:' + e.toString());
+                        clearInterval(play);
+                    }
+                }, 0.01);
+            }
+        };
+        play.init();
+    }
+</script>
+</body>
+</html>
