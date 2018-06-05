@@ -26,7 +26,7 @@
             </div>
             <div class="col-4 px-5">
                 <div class="search d-flex justify-content-between align-items-center">
-                    <input type="search">
+                    <input type="search"/>
                     <button>&nbsp</button>
                 </div>
             </div>
@@ -160,27 +160,24 @@
             scrollUp: function () {
                 var $content = $('#lyricContent');
                 var $contentWrap = $('#lyricContentWrap');
-                var contentMiddleTop = $content.offset().top + $content.height() / 2;
+                var contentBottom = $content.offset().top + $content.height();
                 var contentWrapBottom = $contentWrap.offset().top + $contentWrap.height();
-                if (contentWrapBottom - this.lyricLineHeight() >= contentMiddleTop
+                if (contentWrapBottom - this.lyricLineHeight() >= contentBottom
                     && highLine.currentIndex >= this.highLineStopIndex) {
                     this.scrollUpOneLine();
-                    console.log('歌词内容向上滚了一行');
-                } else {
-                    console.log('歌词内容不向上滚了');
                 }
             },
             //定位到初始高亮行（界面歌词含[00:00.00]的行）
-            toFirstLineOneTime:function () {
+            toFirstLineOneTime: function () {
                 var lines = $('#lyricContentWrap').find('p');
                 for (var i = 0; i < lines.length; i++) {
                     var flag = lines[i].innerText.indexOf('[00:00.00]');
                     if (flag !== -1) {
-                        for (var j = 0; j <i; j++) {
+                        for (var j = 0; j < i; j++) {
                             highLine.turnToNextLine();
                             lyricContent.scrollUp();
                         }
-                        return i-1;
+                        return i - 1;
                     }
                 }
             }
@@ -207,7 +204,6 @@
                             arr[i] = _this.lyricToSecondTime(arr[i]);
                         }
                         _this.lyricArr = arr;
-                        console.log('arr=' + _this.lyricArr);
                     }
                 });
             },
@@ -217,22 +213,21 @@
                 var arr = str.split(':');
                 var currentTime = parseFloat(arr[0]) * 60 + parseFloat(arr[1]);
                 return currentTime;
-                // console.log('lyric time='+currentTime);
             }
         };
 
         //播放对象
-        var play={
-            init:function () {
+        var play = {
+            init: function () {
                 lyric.getTextFromLyricFile();
                 var myaudio = $('#myaudio');
-                var offset=0;//由于歌词数据和界面高亮currentIndex耦合在一起呢，需要做hack,导致程序各种不佳
+                var offset = 0;//由于歌词数据和界面高亮currentIndex耦合在一起呢，需要做hack,导致程序各种不佳
                 var play = setInterval(function () {
                     try {
-                        if (myaudio[0].currentTime > lyric.lyricArr[highLine.currentIndex-offset]) {
-                            if(highLine.currentIndex===0){
-                                offset=lyricContent.toFirstLineOneTime();
-                            }else{
+                        if (myaudio[0].currentTime > lyric.lyricArr[highLine.currentIndex - offset]) {
+                            if (highLine.currentIndex === 0) {
+                                offset = lyricContent.toFirstLineOneTime();
+                            } else {
                                 highLine.turnToNextLine();
                                 lyricContent.scrollUp();
                             }
@@ -241,7 +236,6 @@
                             clearInterval(play);
                         }
                     } catch (e) {
-                        console.log('play error:' + e.toString());
                         clearInterval(play);
                     }
                 }, 0.01);
