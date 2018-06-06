@@ -96,7 +96,7 @@
 </main>
 
 <footer>
-    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls" autoplay="autoplay">您的浏览器不支持 audio 标签。</audio>
+    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls">您的浏览器不支持 audio 标签。</audio>
 </footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -115,9 +115,11 @@
 
     window.onload = function (ev) {
         /**
-         * 先酱紫，功能需完善
+         * 先酱紫，功能需完善...
          * 1. jquery的效率问题
          * 2. console的处理问题
+         * 3. 更改播放音乐的实现方式，添加循环播放功能
+         * 4. changed:需求变化了，歌词界面根据播放进度条的时间点而更新(point:搜索结构)
          */
 
         var highLine = {
@@ -126,23 +128,6 @@
                 var $lyricContent = $('#lyricContent').find('p');
                 $lyricContent.css('background-color', '#555')
                 $lyricContent[ind].style.backgroundColor = 'blue';
-            },
-            turnToNextLine: function () {
-                //  var $lastLine = $('#lyricContent').find('p').last();
-                //  if (!this.isOneInTwo($lastLine, $('#lyricContent'))) {
-                //下一行不管有无效，直到歌曲歌词结束
-                this.currentIndex++;
-                this.showHighLine(this.currentIndex);
-                console.log('下一站');
-            },
-            isOneInTwo: function (oneObj, twoObj) {
-                var $oneOffset = $(oneObj).offset();
-                var $twoOffset = $(twoObj).offset();
-                if ($oneOffset.left >= $twoOffset.left && $oneOffset.left + $(oneObj).width() <= $twoOffset.left + $(twoObj).width()
-                    && $oneOffset.top >= $twoOffset.top && $oneOffset.top + $(oneObj).height() <= $twoOffset.top + $(twoObj).height()) {
-                    return true;
-                }
-                return false;
             }
         };
 
@@ -157,27 +142,54 @@
                 temp = (parseInt(temp) - this.lyricLineHeight()) + 'px';
                 contentWrap.css('top', temp);
             },
-            scrollUp: function () {
+            scrollDownOneLine: function () {
+                var contentWrap = $('#lyricContentWrap');
+                var temp = contentWrap.css('top');
+                temp = (parseInt(temp) + this.lyricLineHeight()) + 'px';
+                contentWrap.css('top', temp);
+            },
+            //算法：让tarInd行往歌词区的固定行滚（一行一行地滚，但达到不能滚的条件就停止滚）
+            scroll: function (tarInd) {
+                var _this = this;
                 var $content = $('#lyricContent');
                 var $contentWrap = $('#lyricContentWrap');
-                var contentBottom = $content.offset().top + $content.height();
-                var contentWrapBottom = $contentWrap.offset().top + $contentWrap.height();
-                if (contentWrapBottom - this.lyricLineHeight() >= contentBottom
-                    && highLine.currentIndex >= this.highLineStopIndex) {
-                    this.scrollUpOneLine();
+                //歌词固定行的位置
+                var stopLineTop = $content.offset().top + this.highLineStopIndex * this.lyricLineHeight();
+                //歌词内容高亮行的绝对位置
+                var highLineTop = $contentWrap.offset().top + tarInd * this.lyricLineHeight();
+                //需要滚动的行数
+                var lines = Math.abs(stopLineTop - highLineTop) / this.lyricLineHeight();
+
+                //滚动条件
+                function upScolleable() {
+                    var contentTop = $content.offset().top;
+                    var contentWrapTop = $contentWrap.offset().top;
+                    var contentBottom = contentTop + $content.height();
+                    var contentWrapBottom = contentWrapTop + $contentWrap.height();
+                    if (contentWrapBottom - _this.lyricLineHeight() < contentBottom) {
+                        return false;
+                    }
+                    return true;
                 }
-            },
-            //定位到初始高亮行（界面歌词含[00:00.00]的行）
-            toFirstLineOneTime: function () {
-                var lines = $('#lyricContentWrap').find('p');
-                for (var i = 0; i < lines.length; i++) {
-                    var flag = lines[i].innerText.indexOf('[00:00.00]');
-                    if (flag !== -1) {
-                        for (var j = 0; j < i; j++) {
-                            highLine.turnToNextLine();
-                            lyricContent.scrollUp();
-                        }
-                        return i - 1;
+
+                function downScolleable() {
+                    var contentTop = $content.offset().top;
+                    var contentWrapTop = $contentWrap.offset().top;
+                    var contentBottom = contentTop + $content.height();
+                    var contentWrapBottom = contentWrapTop + $contentWrap.height();
+                    if (contentWrapTop + _this.lyricLineHeight() > contentTop) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                if (stopLineTop < highLineTop&&upScolleable()) {
+                    for (var i = 0; i < lines; i++) {
+                        this.scrollUpOneLine();
+                    }
+                } else if (stopLineTop > highLineTop&&downScolleable()) {
+                    for (var i = 0; i < lines; i++) {
+                        this.scrollDownOneLine();
                     }
                 }
             }
@@ -185,63 +197,79 @@
 
         //歌词对象,TM这有个转码问题,函数参数没得提示哎，子项是数字
         var lyric = {
+            //存储每一行歌词的时间数字{number}
             lyricArr: [],
+            highLineInd: -1,
             getTextFromLyricFile: function () {
                 var _this = this;
                 $.ajax({
                     url: 'hot.lrc',
                     success: function (data) {
-                        console.log(data);
                         var $lyricContentWrap = $('#lyricContentWrap');
                         var lyricTemp = data.split('\n');
-                        for (var i = 0; i < lyricTemp.length - 1; i++) {
+                        lyricTemp.splice(lyricTemp.length - 1, 1);
+                        for (var i = 0; i < lyricTemp.length; i++) {
                             $lyricContentWrap.append('<p>' + lyricTemp[i] + '</p>')
                         }
-
-                        var arr = data.match(/\[\S{8}\]/g);
+                        var arr = data.match(/\[[^\n]*\]/g);
                         for (var i = 0; i < arr.length; i++) {
-                            arr[i] = arr[i].substring(1, 9);
                             arr[i] = _this.lyricToSecondTime(arr[i]);
                         }
                         _this.lyricArr = arr;
                     }
                 });
             },
-            //str [00:04.37]曲：朴树
+            //str [00:04.37]abc或者[abc]abc
             lyricToSecondTime: function (str) {
-                var str = str.substring(1, 9);
+                str = str.substring(1, 9);
+                var reg = new RegExp(/\d{2}:\d{2}.\d{2}/g);
+                if (!reg.test(str)) {
+                    return 0;
+                }
                 var arr = str.split(':');
                 var currentTime = parseFloat(arr[0]) * 60 + parseFloat(arr[1]);
                 return currentTime;
+            },
+            updateByCurrentTime: function (tarTime) {
+                var tarInd = 0;
+                for (var i = 0; i < this.lyricArr.length; i++) {
+                    if (tarTime < this.lyricArr[i]) {
+                        tarInd = i - 1;
+                        break;
+                    } else if (tarTime === this.lyricArr[i]) {
+                        tarInd = i;
+                        break;
+                    }
+                }
+                if (i === this.lyricArr.length && tarTime > this.lyricArr[this.lyricArr.length - 1]) {
+                    tarInd = i - 1;
+                }
+                if (tarInd === this.highLineInd) return;
+                this.highLineInd = tarInd;
+
+                //让索引为tarInd的行高亮
+                highLine.showHighLine(this.highLineInd);
+                //歌词内容滚动
+                lyricContent.scroll(this.highLineInd);
             }
         };
 
-        //播放对象
-        var play = {
+        var media = {
+            $el: $('#myaudio'),
             init: function () {
-                lyric.getTextFromLyricFile();
-                var myaudio = $('#myaudio');
-                var offset = 0;//由于歌词数据和界面高亮currentIndex耦合在一起呢，需要做hack,导致程序各种不佳
-                var play = setInterval(function () {
-                    try {
-                        if (myaudio[0].currentTime > lyric.lyricArr[highLine.currentIndex - offset]) {
-                            if (highLine.currentIndex === 0) {
-                                offset = lyricContent.toFirstLineOneTime();
-                            } else {
-                                highLine.turnToNextLine();
-                                lyricContent.scrollUp();
-                            }
-                        }
-                        if (myaudio[0].ended) {
-                            clearInterval(play);
-                        }
-                    } catch (e) {
-                        clearInterval(play);
-                    }
-                }, 0.01);
+                this.bindTimeupdate();
+            },
+            //相应时间触发的歌词界面更新
+            bindTimeupdate: function () {
+                var _this = this;
+                this.$el.bind('timeupdate', function (e) {
+                    lyric.updateByCurrentTime(_this.$el[0].currentTime);
+                });
             }
         };
-        play.init();
+
+        lyric.getTextFromLyricFile();
+        media.init();
     }
 </script>
 </body>
