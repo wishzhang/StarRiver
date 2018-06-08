@@ -96,7 +96,7 @@
 </main>
 
 <footer>
-    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls">您的浏览器不支持 audio 标签。</audio>
+    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls" loop="loop">您的浏览器不支持 audio 标签。</audio>
 </footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -117,9 +117,6 @@
         /**
          * 先酱紫，功能需完善...
          * 1. jquery的效率问题
-         * 2. console的处理问题
-         * 3. 更改播放音乐的实现方式，添加循环播放功能
-         * 4. changed:需求变化了，歌词界面根据播放进度条的时间点而更新(point:搜索结构)
          */
 
         var highLine = {
@@ -135,7 +132,7 @@
             lyricLineHeight: function () {
                 return $('#lyricContentWrap').find('p').first().height();
             },
-            highLineStopIndex: 5,
+            highLineStopIndex: 4,
             scrollUpOneLine: function () {
                 var contentWrap = $('#lyricContentWrap');
                 var temp = contentWrap.css('top');

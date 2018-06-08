@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/hostlist.css">
+    <link rel="stylesheet" href="css/hotlist.css">
     <title>酷狗飙升榜_热门榜单</title>
 </head>
 <body>
@@ -34,8 +34,8 @@
                 <li><a href="#">会员中心</a></li>
                 |
             </div>
-            <div class="col-2">
-                <button class="btn btn-primary btn-lg">登录</button>
+            <div class="col-2 d-flex justify-content-end">
+                <button class="btn btn-primary btn-lg mr-3">登录</button>
                 <button class="btn btn-outline-primary btn-lg">注册</button>
             </div>
         </div>
@@ -43,14 +43,14 @@
 </header>
 <nav class=bg-success">
     <div class="container my-container">
-        <div class="row mynav">
-            <ul class="col-6 d-flex justify-content-around align-items-center px-5 h-100">
+        <div class="row no-gutters mynav">
+            <ul class="col-6 d-flex">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">榜单</a></li>
                 <li><a href="#">下载客户端</a></li>
                 <li><a href="#">更多</a></li>
             </ul>
-            <ul class="col-6 d-flex">
+            <ul class="col-6 d-flex justify-content-end">
                 <li><a href="#">音乐直播</a></li>
                 <li><a href="#">酷狗LIVE</a></li>
                 <li><a href="#">音乐人</a></li>
@@ -63,53 +63,96 @@
 <main class="container my-container">
     <div class="row">
         <aside class="col-3">
-            <div id="accordion">
+            <div id="accordion" class="hotlist-nav">
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible Group Item #1
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                热门榜单
                             </button>
                         </h5>
                     </div>
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action active">
+                                    酷狗飙升榜
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">酷狗TOP500</a>
+                                <a href="#" class="list-group-item list-group-item-action">网络红歌榜</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible Group Item #2
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                    aria-expanded="false" aria-controls="collapseTwo">
+                                特色音乐榜
                             </button>
                         </h5>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                    aria-expanded="false" aria-controls="collapseThree">
+                                全球榜
                             </button>
                         </h5>
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                         </div>
                     </div>
                 </div>
             </div>
         </aside>
-        <section class="col"></section>
+        <section class="col">
+            <div id="hotlist-content">
+                <div class="card hotlist-content">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <h1>酷狗飙升榜</h1>
+                            <small class="ml-4">2018-06-06 更新</small>
+                        </div>
+                        <a href="#" class="btn btn-lg btn-primary ">播放全部</a>
+                    </div>
+                    <div class="list-group">
+                        <a href="song.html" class="list-group-item list-group-item-action d-flex">
+                            <div class="col-8">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="why" id="song1"></input>
+                                    <label for="song1">金志文-边走边唱</label>
+                                </div>
+                            </div>
+                            <div class="col-4 text-right">
+                                <small>4:12</small>
+                            </div>
+                        </a>
+                        <a href="song.html" class="list-group-item list-group-item-action d-flex">
+                            <div class="col-8">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="why" id="song2"></input>
+                                    <label for="song2">安东阳-几多相思几多泪</label>
+                                </div>
+                            </div>
+                            <div class="col-4 text-right">
+                                <small>4:12</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 

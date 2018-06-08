@@ -37,7 +37,6 @@ body{
 
 .my-container{
     padding:0 70px;
-    height:100%;
 }
 
 /*header
@@ -45,6 +44,8 @@ body{
 
 header{
     height:7.8rem;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
@@ -145,4 +146,21 @@ footer .links a:hover{
 
 .footer-content .copyright a{
     color:#b1b3b9;
+}
+
+/*hostlist left*/
+.hotlist-nav button{
+    font-size:1.7rem;
+}
+
+.hotlist-content .card-header{
+    font-size: 2rem;
+    height: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.hotlist-content .card-header h1{
+    margin-bottom: 0;
+    font-weight:bold;
 }

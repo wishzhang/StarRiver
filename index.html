@@ -109,36 +109,42 @@
                 <a href="#">更多</a>
             </div>
             <div class="flexbox3-content">
-                <div class="flexbox3-content-item">
-                    <img src="http://imge.kugou.com/v2/rank_cover/T1M4h4BKKj1RCvBVdK.jpg_240x240.jpg" width="98"
-                         height="98" alt="">
-                    <dl>
-                        <dt>酷狗飙升榜</dt>
-                        <dd>1 . 韩东君 - 失恋阵线联盟 (Live)</dd>
-                        <dd>2 . 陈学冬、徐静蕾 - 有一点动心 (Live)</dd>
-                    </dl>
-                    <span>></span>
-                </div>
-                <div class="flexbox3-content-item">
-                    <img src="http://imge.kugou.com/v2/rank_cover/T1fHd4BXd_1RCvBVdK.jpg_240x240.jpg" width="98"
-                         height="98" alt="">
-                    <dl>
-                        <dt>酷狗TOP500</dt>
-                        <dd>1 . 烟把儿乐队 - 纸短情长 (完整版)</dd>
-                        <dd>2 . 庄心妍 - 再见只是陌生人</dd>
-                    </dl>
-                    <span>></span>
-                </div>
-                <div class="flexbox3-content-item">
-                    <img src="http://imge.kugou.com/v2/rank_cover/T1Fpd4BKbg1RCvBVdK.jpg_240x240.jpg" width="98"
-                         height="98" alt="">
-                    <dl>
-                        <dt>网络红歌榜</dt>
-                        <dd>1 . 庄心妍 - 记得找我</dd>
-                        <dd>2 . 慕容晓晓 - 非走不可</dd>
-                    </dl>
-                    <span>></span>
-                </div>
+                <a href="hotlist.html">
+                    <div class="flexbox3-content-item">
+                        <img src="http://imge.kugou.com/v2/rank_cover/T1M4h4BKKj1RCvBVdK.jpg_240x240.jpg" width="98"
+                             height="98" alt="">
+                        <dl>
+                            <dt>酷狗飙升榜</dt>
+                            <dd>1 . 韩东君 - 失恋阵线联盟 (Live)</dd>
+                            <dd>2 . 陈学冬、徐静蕾 - 有一点动心 (Live)</dd>
+                        </dl>
+                        <span>></span>
+                    </div>
+                </a>
+                <a href="hotlist.html">
+                    <div class="flexbox3-content-item">
+                        <img src="http://imge.kugou.com/v2/rank_cover/T1fHd4BXd_1RCvBVdK.jpg_240x240.jpg" width="98"
+                             height="98" alt="">
+                        <dl>
+                            <dt>酷狗TOP500</dt>
+                            <dd>1 . 烟把儿乐队 - 纸短情长 (完整版)</dd>
+                            <dd>2 . 庄心妍 - 再见只是陌生人</dd>
+                        </dl>
+                        <span>></span>
+                    </div>
+                </a>
+                <a href="hotlist.html">
+                    <div class="flexbox3-content-item">
+                        <img src="http://imge.kugou.com/v2/rank_cover/T1Fpd4BKbg1RCvBVdK.jpg_240x240.jpg" width="98"
+                             height="98" alt="">
+                        <dl>
+                            <dt>网络红歌榜</dt>
+                            <dd>1 . 庄心妍 - 记得找我</dd>
+                            <dd>2 . 慕容晓晓 - 非走不可</dd>
+                        </dl>
+                        <span>></span>
+                    </div>
+                </a>
             </div>
 
         </div>
@@ -408,15 +414,15 @@
 <script type='text/javascript' src="component/carousel/jquery-3.2.1.js"></script>
 <script type='text/javascript' src="component/carousel/carousel.js"></script>
 <script>
-window.onload=function (ev) {
-    new Vue({
-        el: '#carousel1',
-        data: {
-            picUrlList: ['album1-220x220.jpg', 'album2-220x220.jpg', 'album3-220x220.jpg', 'album4-220x220.jpg']
-        }
-    })
-    $('#carousel1').carousel();
-};
+    window.onload = function (ev) {
+        new Vue({
+            el: '#carousel1',
+            data: {
+                picUrlList: ['album1-220x220.jpg', 'album2-220x220.jpg', 'album3-220x220.jpg', 'album4-220x220.jpg']
+            }
+        })
+        $('#carousel1').carousel();
+    };
 
 </script>
 </body>
