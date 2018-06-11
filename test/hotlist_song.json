@@ -1,0 +1,16 @@
+{
+    "updateTime":"",
+    "title":"",
+    "buttonText":"",
+    "data":[{
+        "singer":"金志文",
+        "name":"边走边唱",
+        "timeLength":"3:12",
+        "checked":true
+    },{
+        "singer":"安东阳",
+        "name":"几多相思几多泪",
+        "timeLength":"4:12",
+        "checked":false
+    }]
+}
