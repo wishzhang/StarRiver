@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <!-- Required meta tags -->
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <meta charset="GBK">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Type" content="text/html; charset=GBK"/>
@@ -24,7 +25,7 @@
                     </a>
                 </h1>
             </div>
-            <div class="col-4 px-5">
+            <div class="col-4" style="padding-left: 5rem;">
                 <div class="search d-flex justify-content-between align-items-center">
                     <input type="search"/>
                     <button>&nbsp</button>
@@ -95,8 +96,37 @@
     </div>
 </main>
 
-<footer>
-    <audio id="myaudio" class="myaudio" src="hot.mp3" controls="controls" loop="loop">您的浏览器不支持 audio 标签。</audio>
+<footer id="player">
+    <div class="container my-container">
+        <div class="row h-100 no-gutters">
+            <div class="col-2 h-100 d-flex justify-content-around align-items-center">
+                <a href="#" class="icon icon-playbar-pre"></a>
+                <a href="#" class="icon icon-playbar-pause" id="play"></a>
+                <a href="#" class="icon icon-playbar-next"></a>
+            </div>
+            <div class="col-7 h-100 d-flex align-items-center">
+                <a href="#"><img class="songicon mx-5" src="http://imge.kugou.com/stdmusic/20180606/20180606155313815709.jpg" alt=""></a>
+                <div class="w-100 mr-5">
+                    <div>平凡之路</div>
+                    <div class="progress-container d-flex align-items-center" id="progress-container">
+                        <div class="progressbar" id="progressbar">
+                            <span class="progressbar-ing" id="progressbar-ing"></span>
+                            <span class="progressbar-dot" id="progressbar-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 h-100 d-flex justify-content-around align-items-center">
+                <span class="icon icon-playbar-voice"></span>
+                <span class="icon icon-playbar-cycle"></span>
+                <span class="icon icon-playbar-download"></span>
+                <span class="icon icon-playbar-share"></span>
+            </div>
+            <div class="col-1 h-100 d-flex justify-content-start pl-4 align-items-center">
+                <span class="icon icon-playbar-playlist"></span>
+            </div>
+        </div>
+    </div>
 </footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -251,16 +281,59 @@
             }
         };
 
+        var myAudio=(function () {
+            var audio = document.createElement("AUDIO");
+            audio.src='a.mp3';
+
+            var $play=$('#play');
+            var playCurrentStart=0;//0：当前为暂停按钮
+            //播放|暂停
+            $play.click(function (e) {
+                if(playCurrentStart===0){
+                    $(this).removeClass('icon-playbar-pause');
+                    $(this).addClass('icon-playbar-play');
+                    audio.play();
+                }else{
+                    $(this).removeClass('icon-playbar-play');
+                    $(this).addClass('icon-playbar-pause');
+                    audio.pause();
+                }
+                playCurrentStart=1-playCurrentStart;
+            });
+            //播放完毕
+            $(audio).bind('ended',function (e) {
+                $play.removeClass('icon-playbar-play');
+                $play.addClass('icon-playbar-pause');
+            });
+            //进度条随播放时间长度而更新
+            $(audio).bind('timeupdate',function () {
+                var percentage=audio.currentTime/audio.duration;
+                var length=$('#progressbar').width();
+                var $progressbarIng=$('#progressbar-ing');
+                var $progressbarDot=$('#progressbar-dot');
+                $progressbarIng.width(length*percentage);
+                $progressbarDot.css('left',length*percentage);
+            });
+
+            //调整播放进度,后面todo,点击事件对象event包含哪些属性方法？
+            var $progressContainer=$('#progress-container');
+            $progressContainer.click(function (e) {
+
+            })
+
+            return audio;
+        })();
+
         var media = {
-            $el: $('#myaudio'),
             init: function () {
+                myAudio.src='hot.mp3';
                 this.bindTimeupdate();
             },
             //相应时间触发的歌词界面更新
             bindTimeupdate: function () {
                 var _this = this;
-                this.$el.bind('timeupdate', function (e) {
-                    lyric.updateByCurrentTime(_this.$el[0].currentTime);
+                $(myAudio).bind('timeupdate', function (e) {
+                    lyric.updateByCurrentTime(myAudio.currentTime);
                 });
             }
         };

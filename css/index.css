@@ -6,13 +6,13 @@
 }
 
 /*header*/
-header {
-    width: 1000px;
-    height: 78px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/*header {*/
+    /*width: 1000px;*/
+    /*height: 78px;*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+/*}*/
 
 .logo {
     width: 153px;
@@ -759,4 +759,9 @@ footer .links a:hover{
     background-color:#14a9ff ;
     border-radius: 2px;
     color:white;
+}
+
+/*播放器*/
+.player {
+    display:flex;
 }
