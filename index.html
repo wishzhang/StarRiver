@@ -477,7 +477,8 @@
             }
         },
         methods: {
-            submit: function () {
+            submit: function (e) {
+                e.preventDefault();
                 //登录和注册逻辑
                 var _this=this;
                 if (this.title === '登录') {

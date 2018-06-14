@@ -217,16 +217,22 @@ footer{
     background-position: -180px -143px;
 }
 
-.icon-playbar-voice {
+.icon-playbar-volume-open {
     width: 1.6rem;
     height: 1.6rem;
     background-position: -80px -195px;
 }
 
-.icon-playbar-cycle {
+.icon-playbar-order-sequence{
     width: 1.6rem;
     height: 1.6rem;
     background-position: -64px -179px;
+}
+
+.icon-playbar-order-curculate{
+    width:16px;
+    height: 16px;
+    background-position: -80px -179px;
 }
 
 .icon-playbar-download {
@@ -247,6 +253,12 @@ footer{
     height: 23px;
 
     background-position: -61px -120px;
+}
+
+.icon-playbar-volume-close{
+    width:16px;
+    height:16px;
+    background-position: -144px -195px;
 }
 
 .songicon {

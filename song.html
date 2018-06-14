@@ -105,9 +105,15 @@
                 <a href="#" class="icon icon-playbar-next"></a>
             </div>
             <div class="col-7 h-100 d-flex align-items-center">
-                <a href="#"><img class="songicon mx-5" src="http://imge.kugou.com/stdmusic/20180606/20180606155313815709.jpg" alt=""></a>
+                <a href="#"><img class="songicon mx-5"
+                                 src="http://imge.kugou.com/stdmusic/20180606/20180606155313815709.jpg" alt=""></a>
                 <div class="w-100 mr-5">
-                    <div>平凡之路</div>
+                    <div class="d-flex justify-content-between">
+                        <div>平凡之路</div>
+                        <div>
+                            <span id="play-currentTime"></span>/<span id="play-duration"></span>
+                        </div>
+                    </div>
                     <div class="progress-container d-flex align-items-center" id="progress-container">
                         <div class="progressbar" id="progressbar">
                             <span class="progressbar-ing" id="progressbar-ing"></span>
@@ -117,8 +123,8 @@
                 </div>
             </div>
             <div class="col-2 h-100 d-flex justify-content-around align-items-center">
-                <span class="icon icon-playbar-voice"></span>
-                <span class="icon icon-playbar-cycle"></span>
+                <span class="icon icon-playbar-volume-open" id="volume"></span>
+                <span class="icon icon-playbar-order-sequence" id="order"></span>
                 <span class="icon icon-playbar-download"></span>
                 <span class="icon icon-playbar-share"></span>
             </div>
@@ -148,6 +154,26 @@
          * 先酱紫，功能需完善...
          * 1. jquery的效率问题
          */
+
+        var util={
+            sTOms:function(s) {
+                var str='';
+                var m=parseInt(s/60);
+                if(m<10){
+                    str+='0'+m;
+                }else{
+                    str+=m;
+                }
+                str+=':';
+                var s1=parseInt(s%60);
+                if(s1<10){
+                    str+='0'+s1;
+                }else{
+                    str+=s1;
+                }
+                return str;
+            }
+        };
 
         var highLine = {
             currentIndex: 0,
@@ -210,11 +236,11 @@
                     return true;
                 }
 
-                if (stopLineTop < highLineTop&&upScolleable()) {
+                if (stopLineTop < highLineTop && upScolleable()) {
                     for (var i = 0; i < lines; i++) {
                         this.scrollUpOneLine();
                     }
-                } else if (stopLineTop > highLineTop&&downScolleable()) {
+                } else if (stopLineTop > highLineTop && downScolleable()) {
                     for (var i = 0; i < lines; i++) {
                         this.scrollDownOneLine();
                     }
@@ -281,52 +307,98 @@
             }
         };
 
-        var myAudio=(function () {
+        var myAudio = (function () {
             var audio = document.createElement("AUDIO");
-            audio.src='a.mp3';
+            audio.src = 'hot.mp3';
 
-            var $play=$('#play');
-            var playCurrentStart=0;//0：当前为暂停按钮
+            var $play = $('#play');
+            var playCurrentStart = 0;//0：当前为暂停按钮
             //播放|暂停
             $play.click(function (e) {
-                if(playCurrentStart===0){
+                if (playCurrentStart === 0) {
                     $(this).removeClass('icon-playbar-pause');
                     $(this).addClass('icon-playbar-play');
                     audio.play();
-                }else{
+                } else {
                     $(this).removeClass('icon-playbar-play');
                     $(this).addClass('icon-playbar-pause');
                     audio.pause();
                 }
-                playCurrentStart=1-playCurrentStart;
+                playCurrentStart = 1 - playCurrentStart;
             });
             //播放完毕
-            $(audio).bind('ended',function (e) {
+            $(audio).bind('ended', function (e) {
                 $play.removeClass('icon-playbar-play');
                 $play.addClass('icon-playbar-pause');
             });
             //进度条随播放时间长度而更新
-            $(audio).bind('timeupdate',function () {
-                var percentage=audio.currentTime/audio.duration;
-                var length=$('#progressbar').width();
-                var $progressbarIng=$('#progressbar-ing');
-                var $progressbarDot=$('#progressbar-dot');
-                $progressbarIng.width(length*percentage);
-                $progressbarDot.css('left',length*percentage);
+            $(audio).bind('timeupdate', function () {
+                var percentage = audio.currentTime / audio.duration;
+                var length = $('#progressbar').width();
+                var $progressbarIng = $('#progressbar-ing');
+                var $progressbarDot = $('#progressbar-dot');
+                $progressbarIng.width(length * percentage);
+                $progressbarDot.css('left', length * percentage);
             });
 
-            //调整播放进度,后面todo,点击事件对象event包含哪些属性方法？
-            var $progressContainer=$('#progress-container');
+            //调整播放进度
+            var $progressContainer = $('#progress-container');
             $progressContainer.click(function (e) {
-
-            })
+                var w = e.offsetX;
+                var length = $('#progressbar').width();
+                var $progressbarIng = $('#progressbar-ing');
+                var $progressbarDot = $('#progressbar-dot');
+                $progressbarIng.width(w);
+                $progressbarDot.css('left', w);
+                var percentage = w / length;
+                var targetTime = audio.duration * percentage;
+                //TODO bug:Google Chrome can't perform this feature(set currentTime)
+                audio.currentTime = targetTime;
+            });
+            //打开/关闭声音
+            var $volume = $('#volume');
+            var volumeState = 1;
+            $volume.click(function (e) {
+                if (volumeState === 1) {
+                    $volume.removeClass('icon-playbar-volume-open');
+                    $volume.addClass('icon-playbar-volume-close');
+                    audio.volume = 0;
+                } else if (volumeState === 0) {
+                    $volume.addClass('icon-playbar-volume-open');
+                    $volume.removeClass('icon-playbar-volume-close');
+                    audio.volume = 1;
+                }
+                volumeState = 1 - volumeState;
+            });
+            //打开/关闭单曲循环
+            var $order = $('#order');
+            var orderType = 0;
+            $order.click(function (e) {
+                if (orderType === 0) {
+                    $order.removeClass('icon-playbar-order-sequence');
+                    $order.addClass('icon-playbar-order-curculate');
+                    audio.loop = true;
+                } else if (orderType === 1) {
+                    $order.addClass('icon-playbar-order-sequence');
+                    $order.removeClass('icon-playbar-order-curculate');
+                    audio.loop = false;
+                }
+                orderType = 1 - orderType;
+            });
+            //当前播放时间
+            $(audio).bind('timeupdate',function (e) {
+                $playCurrentTime=$('#play-currentTime');
+                $playCurrentTime.text(util.sTOms(audio.currentTime));
+                //未加载好audio值为NaN
+                $playDuration=$('#play-duration');
+                $playDuration.text(util.sTOms(audio.duration));
+            });
 
             return audio;
         })();
 
         var media = {
             init: function () {
-                myAudio.src='hot.mp3';
                 this.bindTimeupdate();
             },
             //相应时间触发的歌词界面更新

@@ -6,13 +6,13 @@
 }
 
 /*header*/
-/*header {*/
-    /*width: 1000px;*/
-    /*height: 78px;*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: space-between;*/
-/*}*/
+header {
+    width: 1000px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .logo {
     width: 153px;
