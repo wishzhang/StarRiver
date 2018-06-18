@@ -16,8 +16,8 @@
             <a href="#"><img src="http://static.kgimg.com/public/root/images/logo.png" alt=""></a>
         </h1>
         <div class="search">
-            <input type="text" value="">
-            <button class="search_icon">&nbsp</button>
+            <input type="text" v-model="searchKey">
+            <button class="search_icon" @click="searchButton">&nbsp</button>
         </div>
         <div class="top_nav">
             <ul class="personal-certer">
@@ -207,7 +207,7 @@
                 <a href="#">更多</a>
             </div>
             <div class="advicemv-content">
-                <a href="#">
+                <a href="mv.html">
                     <img src="http://imge.kugou.com/mvhdpic/400/20180527/20180527130116101234.jpg" width="320"
                          height="175"
                          alt="">
@@ -480,7 +480,7 @@
             submit: function (e) {
                 e.preventDefault();
                 //登录和注册逻辑
-                var _this=this;
+                var _this = this;
                 if (this.title === '登录') {
                     $.ajax({
                         type: 'post',
@@ -488,7 +488,7 @@
                         success: function (data) {
                             console.log('success');
                             _this.isLogin = true;
-                            _this.$emit('login-state', _this.isLogin,data);
+                            _this.$emit('login-state', _this.isLogin, data);
                         },
                         error: function (e) {
                             console.log('error:' + e.toString());
@@ -504,13 +504,16 @@
         }
     });
 
-    var login = new Vue({
+    var app = new Vue({
         el: '#index',
         data: {
-            username:'',
-            loginClass:{
-                unlogin:'unlogin',
-                logined:'logined'
+            search: {
+                searchKey: ''
+            },
+            username: '',
+            loginClass: {
+                unlogin: 'unlogin',
+                logined: 'logined'
             },
             isLogin: false,
             title: '登录',
@@ -518,6 +521,17 @@
             picUrlList: ['album1-220x220.jpg', 'album2-220x220.jpg', 'album3-220x220.jpg', 'album4-220x220.jpg']
         },
         methods: {
+            search:{
+              searchButton:function () {
+                  var xhr=new XMLHttpRequest();
+                  var self=this;
+                  xhr.open('GET','');
+                  xhr.onload=function (ev) {
+                      console.log('response:'+xhr.responseText);
+                  }
+                  xhr.send();
+              }
+            },
             showLogin: function () {
                 this.title = '登录';
                 this.isDisplay = 'block';
@@ -529,10 +543,10 @@
             closeLogin: function () {
                 this.isDisplay = 'none';
             },
-            loginSuccess:function (isLogin,data) {
-                this.isLogin=isLogin;
+            loginSuccess: function (isLogin, data) {
+                this.isLogin = isLogin;
                 this.closeLogin();
-                this.username=data.user.name;
+                this.username = data.user.name;
             }
         }
     });

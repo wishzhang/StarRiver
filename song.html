@@ -179,7 +179,7 @@
             currentIndex: 0,
             showHighLine: function (ind) {
                 var $lyricContent = $('#lyricContent').find('p');
-                $lyricContent.css('background-color', '#555')
+                $lyricContent.css('background-color', $lyricContent[0].style.backgroundColor);
                 $lyricContent[ind].style.backgroundColor = 'blue';
             }
         };
