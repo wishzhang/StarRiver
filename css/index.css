@@ -72,8 +72,6 @@ header {
 
 .log_rig {
     display: flex;
-    flex-wrap: wrap;
-    overflow: hidden;
 }
 
 .log_rig .logined {
@@ -122,11 +120,17 @@ header {
 }
 
 .log_rig .username {
-    width: 100%;
-    color: red;
+    width:10rem;
+    color: #158fe1;
+    height:2rem;
+    line-height: 2rem;
 }
 
-.log_rig .username:hover + .user-panel {
+.log_rig .username:hover{
+    cursor: pointer;
+}
+
+.log_rig .username:hover .user-panel {
     display: block;
 }
 
@@ -135,12 +139,13 @@ header {
 }
 
 .log_rig .user-panel {
+    position: relative;
     display: none;
-    z-index: 2;
-    border: 1px solid blue;
+    z-index: 1;
+    box-shadow: 0px 1px 5px #14a9ff;
     border-radius: 2px;
     background-color: white;
-    margin-top: 2px;
+    padding: 5px;
 }
 
 /*nav*/
